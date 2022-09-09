@@ -3,7 +3,7 @@ import pytest
 from restAPI.indicator.models import enviromentalIdicators
 
 @pytest.mark.django_db
-def text_addenviromentalIdicators(client):
+def test_addenviromentalIdicators(client):
 
     #Test the post form URL
     indicators = enviromentalIdicators.objects.all()
@@ -29,7 +29,7 @@ def text_addenviromentalIdicators(client):
     assert len(indicators) == 1
 
 @pytest.mark.django_db
-def text_getenviromentalIdicator(client):
+def test_getenviromentalIdicator(client):
 
     #Test the post form URL
     indicator = enviromentalIdicators.objects.create(
@@ -55,16 +55,16 @@ def test_getenviromentalIdicator_incorrect_id(client):
     assert resp.status_code == 404
 
 @pytest.mark.django_db
-def text_getallenviromentalIdicator(client,faker):
+def test_getallenviromentalIdicator(client,faker):
 
     # Given
     def create_random_indicator():
         return enviromentalIdicators.objects.create(
             company=faker.company(),
-            blackCarbon=faker.blacCarbon(),
-            pm1=faker.pm1(),
-            pm25=faker.pm25(),
-            pm10=faker.pm10(),
+            #blackCarbon=faker.blackCarbon(),
+            #pm1=faker.pm1(),
+            #pm25=faker.pm25(),
+            #pm10=faker.pm10(),
         )
 
     company_1 = create_random_indicator()
@@ -73,7 +73,65 @@ def text_getallenviromentalIdicator(client,faker):
     # When
     resp = client.get(f"/api/enviromentalIdicators/")
 
+    print(resp)
+
     # Then
-    assert resp.status_code == 200
-    assert resp.data[0]["company"] == company_1.title
-    assert resp.data[1]["company"] == company_2.title
+    assert resp.status_code == 201
+    assert resp.data[0]["company"] == company_1.company
+    assert resp.data[1]["company"] == company_2.company
+
+@pytest.mark.django_db
+def test_remove_enviromentalIdicator(client):
+    
+    # Given
+    indicator = enviromentalIdicators.objects.create(
+        company = "Company0",
+        idCode = 0,
+        blackCarbon = 16.04,
+        pm1 =  10.0,
+        pm25 = 20.2,
+        pm10 = 30.3,
+    )
+
+    # Check if the enviromentalIndicator exist
+    respExist = client.get(f"/api/enviromentalIdicators/{indicator.idCode}/")
+    assert respExist.status_code == 200
+    assert respExist.data["company"] == "Company0"
+
+    # When
+    respDelete = client.delete(f"/api/enviromentalIdicators/{indicator.idCode}/")
+    respList = client.get(f"/api/enviromentalIdicators/")
+    respNewDetail = client.get(f"/api/enviromentalIdicators/{indicator.idCode}/")
+
+    # Then
+    ## Check status delete
+    assert respDelete.status_code == 200
+    ## Check return delete
+    assert respDelete.data["company"] == "Company0"
+    ## Check status list
+    assert respList.status_code == 201
+    ## Check not item list
+    assert len(respList.data) == 0
+    ## Check not exist detail
+    assert respNewDetail.status_code == 404
+
+@pytest.mark.django_db
+def test_remove_enviromentalIdicator_incorrect_id(client):
+    
+    # Given
+    indicator = enviromentalIdicators.objects.create(
+        company = "Company0",
+        idCode = 0,
+        blackCarbon = 16.04,
+        pm1 =  10.0,
+        pm25 = 20.2,
+        pm10 = 30.3,
+    )
+
+    # When
+    respDelete = client.delete(f"/api/enviromentalIdicators/-1/")
+
+    # Then
+    ## Check status delete
+    assert respDelete.status_code == 404
+    

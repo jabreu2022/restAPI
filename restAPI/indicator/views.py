@@ -38,9 +38,21 @@ class enviromentalIdicatorDetail(APIView):
         indicators = enviromentalIdicators.objects.filter(idCode = idIndicator).first()
         serializer = enviromentalIdicatorsSerializer(indicators)
         if (indicators):
+            serializer = enviromentalIdicatorsSerializer(indicators)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self,request,idIndicator):
+        indicators = enviromentalIdicators.objects.filter(idCode = idIndicator).first()
+        serializer = enviromentalIdicatorsSerializer(indicators)
+        print("delete")
+        if (indicators):
+            indicators.delete()
+            serializer = enviromentalIdicatorsSerializer(indicators)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class fileupload(APIView):
     parserClasses = (MultiPartParser,FormParser)
