@@ -1,0 +1,29 @@
+El buen patrón de trabajo al enfrentarte en la declaración de un nuevo Endpoint / objeto en la web tiene los siguientes pasos que siempre será bueno recordar
+para futuros trabajos
+
+    --> Documenta los Endpoints.
+    --> Crear test (Fallará)
+    --> Definir modelo.
+    --> Definir la vista.
+    --> Definir Serializador.
+    --> Registrar rutas.
+    --> Ejecutar test (Pasará con éxito).
+    --> Configurar Admin.
+
+Si se trabaja en equipo todo cambia. Se tiene que incorporar Git / Github / azure / etc y con ello la integración contínua, creando un flujo sólido y productivo 
+para matar/analizar/destruir los bugs antes de que nazcan.
+
+    --> Creas una rama a partir de develop con el nombre de la tarea.
+    --> Documentar los Endpoints. Nos gusta Notion.
+    --> Crear test (Fallará). Trabajamos con Pytest.
+    --> Definir modelo.
+    --> Configurar la vista.
+    --> Definir el Serializador.
+    --> Registrar rutas.
+    --> Pasar un linter. Adoramos Black.
+    --> Ejecutar test (Pasará con éxito).
+    --> Configurar Admin.
+    --> Merge Request: Subir los cambios al repositorio creando un Merge Request asignando a un compañero aleatorio para que la revise.
+    --> CI/CD: Automáticamente CI/CD revisará conflictos, volverá a pasar el linter y tests. Si está todo bien se desplegará los cambios en el servidor de Staging (beta). 
+    En caso contrario se revisa que ha fallado en el código. Gilab es la gloria para esta etapa. Automáticamente se le notificará al autor del Merge Request por chat 
+    que su cambio está integrado. Como muchos, tiramos de Slack.
