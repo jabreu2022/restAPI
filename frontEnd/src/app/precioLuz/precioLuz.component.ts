@@ -9,6 +9,8 @@ import { RestService } from './../rest.service';
 })
 export class PrecioLuzComponent implements OnInit {
 
+  columnas: string[] = ['Horario', 'Precio', 'Poner Labadora'];
+
   listPrices:Array<any> =[]
 
   constructor(

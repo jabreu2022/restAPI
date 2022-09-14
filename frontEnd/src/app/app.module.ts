@@ -7,8 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 //angular material
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import {MatInputModule} from '@angular/material/input'; //Se tiene que hacer asi para que cargue el CSS dentro del contexto
 import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
 
 //angular componentes
 import { PrecioLuzComponent } from './precioLuz/precioLuz.component';
@@ -24,6 +25,7 @@ import { LoginComponent } from './login/login.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatTableModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
