@@ -37,7 +37,6 @@ class enviromentalIdicatorDetail(APIView):
 
     def get(self,request,idIndicator):
         indicators = enviromentalIdicators.objects.filter(idCode = idIndicator).first()
-        serializer = enviromentalIdicatorsSerializer(indicators)
         if (indicators):
             serializer = enviromentalIdicatorsSerializer(indicators)
             return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,9 +1,19 @@
 <div>
-  {{listPrices[1]}}
-  <tr *ngFor = "let listado of listPrices; let i = index">
-    <td>
-      {{listado}}
-      {{i}} capullo
-    </td>
-  </tr>
+  <h1>
+    Lo vamos a hacer con angular Material
+  </h1>
+
+  <table>
+    <tr *ngFor="let price of listPrices; let i = index">
+      <td>
+        {{ price.hour}}
+      </td>
+      <td>
+        {{ price.price}} - {{price.units}}
+      </td>
+      <td>
+        {{price["is-cheap"]}}
+      </td>
+    </tr>
+  </table>
 </div>
