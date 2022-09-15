@@ -10,6 +10,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input'; //Se tiene que hacer asi para que cargue el CSS dentro del contexto
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator'; //Paginador de las tablas
 
 //angular componentes
 import { PrecioLuzComponent } from './precioLuz/precioLuz.component';
@@ -26,6 +27,7 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatButtonModule,
     MatTableModule,
+    MatPaginatorModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
